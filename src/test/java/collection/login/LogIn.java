@@ -1,9 +1,7 @@
 package collection.login;
 
 import com.demo.base.Context;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 public class LogIn extends Context {
 
@@ -13,9 +11,10 @@ public class LogIn extends Context {
         super();
     }
 
-    @BeforeSuite
-    public void start(){
-        init();
+    @BeforeTest
+    @Parameters("browser")
+    public void start(String browserName){
+        init(browserName);
     }
 
     @Test

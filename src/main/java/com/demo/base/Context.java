@@ -4,6 +4,7 @@ import com.github.dockerjava.api.model.Capability;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -38,9 +39,9 @@ public class Context {
     }
 
 
-    protected void init() {
+    protected void init(String browserName) {
         this.logger();
-        String browserName = properties.getProperty("browser");
+//        String browserName = properties.getProperty("browser");
         driver = getDriver(browserName);
         log.info(browserName + " is configured");
         driver.get(properties.getProperty("url"));
@@ -53,28 +54,31 @@ public class Context {
     protected WebDriver getDriver(String browser) {
         try {
             DesiredCapabilities capabilities = new DesiredCapabilities();
+//            capabilities.setCapability(CapabilityType.PLATFORM_NAME, Platform.LINUX);
             URL url = new URL("http://localhost:4444/wd/hub");
-            if (driver == null) {
-                switch (browser) {
-                    case "chrome":
-                        WebDriverManager.chromedriver().setup();
-                        capabilities.setCapability(CapabilityType.BROWSER_NAME, "chrome");
+//            if (driver == null) {
+            switch (browser) {
+                case "chrome":
+//                        WebDriverManager.chromedriver().setup();
+                    capabilities.setCapability(CapabilityType.BROWSER_NAME, "chrome");
 //                    driver = new ChromeDriver();
-                        driver = new RemoteWebDriver(url, capabilities);
-                        break;
-                    case "ie":
-                        WebDriverManager.iedriver().setup();
-                        driver = new InternetExplorerDriver();
-                        break;
-                    case "firefox":
-                        WebDriverManager.firefoxdriver().setup();
-                        driver = new FirefoxDriver();
-                        break;
-                    default:
-                        log.error("browser not matched");
-                        break;
-                }
+                    driver = new RemoteWebDriver(url, capabilities);
+                    break;
+                case "ie":
+                    WebDriverManager.iedriver().setup();
+                    driver = new InternetExplorerDriver();
+                    break;
+                case "firefox":
+//                        WebDriverManager.firefoxdriver().setup();
+//                        driver = new FirefoxDriver();
+                    capabilities.setCapability(CapabilityType.BROWSER_NAME, "firefox");
+                    driver = new RemoteWebDriver(url, capabilities);
+                    break;
+                default:
+                    log.error("browser not matched");
+                    break;
             }
+//            }
 
 
         } catch (MalformedURLException e) {
