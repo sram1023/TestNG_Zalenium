@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="C:/Users/ramkumar.raja/IdeaProjects/TestNGDemo">
+        <classes>
+            <class name="collection.login.LogIn">
+                <methods>
+                    <include name="login"/>
+                </methods>
+            </class>
+            <class name="collection.login.CreateAccount">
+                <methods>
+                    <include name="emailAddress"/>
+                    <include name="personalInformation"/>
+                </methods>
+            </class>
+
+        </classes>
+    </test>
+</suite>
